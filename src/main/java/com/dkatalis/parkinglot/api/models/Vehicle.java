@@ -12,7 +12,7 @@ public abstract class Vehicle {
     private Color color;
     private Ticket ticket;
 
-    public Vehicle(VehicleType type) {
+    protected Vehicle(VehicleType type) {
         this.type = type;
     }
 

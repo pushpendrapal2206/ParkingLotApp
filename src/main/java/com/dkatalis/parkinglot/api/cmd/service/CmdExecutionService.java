@@ -18,7 +18,7 @@ public abstract class CmdExecutionService {
         return argsLength >= cmd.getExpectedArguments();
     }
 
-    public void register(Command command) {
+    void register(Command command) {
         commandMap.put(command.getCommandName(), command);
     }
 
@@ -29,6 +29,4 @@ public abstract class CmdExecutionService {
         }
         command.execute(args);
     }
-
-    public abstract void initParkingCommands();
 }

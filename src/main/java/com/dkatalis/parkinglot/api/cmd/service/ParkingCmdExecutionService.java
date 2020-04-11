@@ -8,18 +8,14 @@ import com.dkatalis.parkinglot.api.common.ParkingLotConstant;
  * @author Pushpendra Pal
  */
 public class ParkingCmdExecutionService extends CmdExecutionService {
-    private final ParkingLot parkingLot = ParkingLot.getInstance();
+    private final ParkingLot parkingLot;
 
     public ParkingCmdExecutionService() {
+        parkingLot = ParkingLot.getInstance();
         initParkingCommands();
     }
 
-    @Override
-    public void initParkingCommands() {
-        initCommands();
-    }
-
-    private void initCommands() {
+    private void initParkingCommands() {
         register(new Command(ParkingLotConstant.CREATE_PARKING_LOT, 1, parkingLot::createParkingLot));
         register(new Command(ParkingLotConstant.PARK, 1, parkingLot::park));
         register(new Command(ParkingLotConstant.LEAVE, 2, parkingLot::leave));

@@ -17,6 +17,9 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static com.dkatalis.parkinglot.api.common.ParkingLotConstant.CAR_ALREADY_PARKED_MESSAGE;
+import static com.dkatalis.parkinglot.api.common.ParkingLotConstant.PARKING_SLOT_ALLOCATED_MESSAGE;
+
 /**
  * @author Pushpendra Pal
  */
@@ -45,6 +48,10 @@ public class ParkingLot {
 
     public void createParkingLot(final String[] args) {
         int capacity = Integer.parseInt(args[0]);
+        if (capacity <= 0) {
+            System.out.println(String.format(ParkingLotConstant.PARKING_LOT_CREATION_ERROR_MESSAGE, capacity));
+            return;
+        }
         for (int i = 1; i <= capacity; i++) {
             ParkingSlot parkingSlot = new ParkingSlot(i);
             this.parkingSlotMap.put(parkingSlot.getSlotNumber(), parkingSlot);
@@ -56,6 +63,10 @@ public class ParkingLot {
         final String registrationNum = args[0];
         final Vehicle vehicle = new Car();
         vehicle.setRegistrationNumber(registrationNum);
+        if (checkIfVehicleIsAlreadyParked(registrationNum)) {
+            System.out.println(CAR_ALREADY_PARKED_MESSAGE);
+            return;
+        }
         Optional<ParkingSlot> optionalParkingSlot = parkingSlotMap.values().stream()
                 .filter(ParkingSlot::isFree)
                 .findFirst();
@@ -63,7 +74,7 @@ public class ParkingLot {
             ParkingSlot parkingSlot = optionalParkingSlot.get();
             parkingSlot.assignVehicle(vehicle);
             getNewParkingTicket(parkingSlot, vehicle, defaultEntryPointId);
-            System.out.println(String.format(ParkingLotConstant.PARKING_SLOT_ALLOCATED_MESSAGE, parkingSlot.getSlotNumber()));
+            System.out.println(String.format(PARKING_SLOT_ALLOCATED_MESSAGE, parkingSlot.getSlotNumber()));
             return;
         }
         System.out.println(ParkingLotConstant.PARKING_LOT_FULL_MESSAGE);
@@ -128,5 +139,12 @@ public class ParkingLot {
         assignedTicket.setStatus(TicketStatus.PAID);
         assignedTicket.setPaidAt(Date.from(Instant.now()));
         parkingTicketMap.put(assignedTicket.getTicketId(), assignedTicket);
+    }
+
+    private boolean checkIfVehicleIsAlreadyParked(final String registrationNum) {
+        return parkingSlotMap.values()
+                .stream()
+                .anyMatch(parkingSlot -> parkingSlot.getVehicle() != null
+                        && parkingSlot.getVehicle().getRegistrationNumber().equals(registrationNum));
     }
 }

@@ -17,6 +17,7 @@ public final class ParkingLotConstant {
     public static final String CAR_UNPARK_MESSAGE = "Registration number %s with Slot Number %s is free with Charge %s";
     public static final String CAR_ALREADY_UNPARKED_MESSAGE = "Registration number %s not found";
     public static final String PARKING_LOT_CREATED_MESSAGE = "Created parking lot with %s slots";
+    public static final String PARKING_LOT_CREATION_ERROR_MESSAGE = "Can not create parking lot with %s slots";
     public static final String UNABLE_TO_PARK_MESSAGE = "Unable to park the car";
     public static final String INVALID_COMMAND = "Invalid command";
     public static final String NOT_FOUND = "Not found";

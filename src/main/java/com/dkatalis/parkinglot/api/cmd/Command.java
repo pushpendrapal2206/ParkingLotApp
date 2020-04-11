@@ -11,8 +11,9 @@ public class Command {
     public String getCommandName() {
         return commandName;
     }
+
     public int getExpectedArguments() {
-       return expectedArguments;
+        return expectedArguments;
     }
 
     public Command(String commandName, int requiredArgs, CmdBinder cmd) {
@@ -21,9 +22,9 @@ public class Command {
         this.commandTo = cmd;
     }
 
-    public void execute(String []args) {
-        if(args.length < expectedArguments) {
-            throw new IllegalArgumentException(commandName + " requires " + expectedArguments+" arguments!");
+    public void execute(String[] args) {
+        if (args.length < expectedArguments) {
+            throw new IllegalArgumentException(commandName + " requires " + expectedArguments + " arguments!");
         }
         commandTo.execute(args);
     }
