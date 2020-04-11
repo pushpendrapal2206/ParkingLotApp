@@ -1,7 +1,7 @@
-# Add script to:
-# * Install dependencies
-# * Build/Compile
-# * Run Test Suit to validate
-#
-# After this is run, bin/parking_lot
-# should Just Work.
+#!/usr/bin/env bash
+# Run unit tests
+mvn clean install
+# run functional tests
+ruby bin/run_functional_tests
+# bring up and run application
+./bin/parking_lot $1

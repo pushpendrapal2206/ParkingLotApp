@@ -99,7 +99,7 @@ public class ParkingLotTest {
         parkingLot.park(new String[]{"regno01"});
         parkingLot.getParkingStatus(input);
         assertThat(outContent.toString(),
-                containsString("Slot No.    Registration No    " + "\n" +
-                        "1           regno01            " + "\n"));
+                containsString("Slot No." + "\t" + "Registration No." + "\n" +
+                        "1" + "\t\t" + "regno01" + "\t\t" + "\n"));
     }
 }

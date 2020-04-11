@@ -1,5 +1,7 @@
 require "bundler/setup"
 require "aruba/rspec"
+require "pty"
+require "timeout"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -17,4 +19,27 @@ end
 
 Aruba.configure do |config|
   config.exit_timeout = 1
+end
+
+def run_command(pty, command)
+  stdout, stdin, pid = pty
+  stdin.puts command
+  sleep(0.3)
+  stdout.readline
+end
+
+def fetch_stdout(pty)
+  stdout, stdin, pid = pty
+  res = []
+  while true
+    begin
+      Timeout::timeout 0.5 do
+        res << stdout.readline
+      end
+    rescue EOFError, Errno::EIO, Timeout::Error
+      break
+    end
+  end
+
+  return res.join('').gsub(/\r/,'')
 end

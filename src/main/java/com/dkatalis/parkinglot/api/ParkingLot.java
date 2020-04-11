@@ -103,19 +103,14 @@ public class ParkingLot {
     }
 
     public void getParkingStatus(String[] args) {
-        System.out.println(String.format("%-12s%-19s", "Slot No.",
-                "Registration No"));
+        System.out.println("Slot No." + "\t" + "Registration No.");
         this.parkingSlotMap.values()
                 .stream()
                 .filter(value -> value.getVehicle() != null)
                 .forEach(value -> {
                     Vehicle vehicle = value.getVehicle();
-                    System.out.println(
-                            String.format("%-12s%-19s",
-                                    vehicle.getTicket().getSlotNumber(),
-                                    vehicle.getRegistrationNumber()
-                            )
-                    );
+                    System.out.println(vehicle.getTicket().getSlotNumber() + "\t\t"
+                            + vehicle.getRegistrationNumber() + "\t\t");
                 });
     }
 

@@ -39,7 +39,7 @@ Slot No.	Registration No.
 3		CA-09-IO-1111		
 4		KA-01-HH-7777		
 5		KA-01-HH-2701		
-6		KA-01-P-333
+6		KA-01-P-333\t\t
 EOTXT
     end
 
